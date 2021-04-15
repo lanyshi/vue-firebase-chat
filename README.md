@@ -1,4 +1,6 @@
-# Real-Time Chat Application
+# Vue.js & Firebase: Real-Time Chat
+
+A real-time chat application built with Vue.js and Firebase.
 
 > View the application at [lanyshi.github.io/](https://lanyshi.github.io/)
 
