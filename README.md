@@ -1,6 +1,21 @@
-# vue-firebase-chat
+# Real-Time Chat Application
 
-> A Vue.js project
+> View the application at [lanyshi.github.io/](https://lanyshi.github.io/)
+
+This is the live version of the real-time chat application. Please see the local version [here](https://github.com/lanyshi/vue-real-time-chat).
+
+This project is guided by:
+* [CodingTheSmartWay.com](https://codingthesmartway.com/building-a-real-time-chat-application-with-vue-js-and-firebase-part-1/)
+* [Vue.js & Firestore App - Build & Deploy](https://www.youtube.com/watch?v=sYNjEzcOTOs&list=PLillGF-RfqbYsOOycB67Raf9dwmL6Y31M&index=1)
+
+## Initialization
+```bash
+# install @vue/cli
+npm install -g @vue/cli
+
+# initialize project
+vue init webpack <ProjectName>
+```
 
 ## Build Setup
 
