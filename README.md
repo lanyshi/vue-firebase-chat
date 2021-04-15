@@ -1,4 +1,4 @@
-# Vue.js & Firebase: Real-Time Chat
+# GitHub Pages: Real-Time Chat
 
 A real-time chat application built with Vue.js and Firebase.
 
