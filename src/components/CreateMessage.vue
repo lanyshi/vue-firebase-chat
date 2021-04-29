@@ -12,6 +12,7 @@
         <p class="text-danger" v-if="errorText">{{ errorText }}</p>
       </div>
       <button type="submit" class="btn btn-primary" name="action">Submit</button>
+      <button type="button" class="btn btn-secondary float-right" v-on:click="logout">Log Out</button>
     </form>
   </div>
 </template>
@@ -46,6 +47,10 @@ export default {
       } else {
         this.errorText = "A message must be entered first.";
       }
+    },
+    logout() {
+      $cookies.remove('user');
+      this.$router.push({name: 'Login'});
     }
   }
 }
