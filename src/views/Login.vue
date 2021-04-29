@@ -7,7 +7,10 @@
         <h2 class="card-title text-center">Login</h2>
         <form @submit.prevent="login" class="text-center">
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="Please enter your name ..." name="name" v-model="name">
+            <input type="text" class="form-control" placeholder="Username" name="name" v-model="name">
+          </div>
+          <div class="form-group">
+            <input type="password" class="form-control" placeholder="Password" name="password" v-model="password">
             <p v-if="errorText" class="text-danger">{{ errorText }}</p>
           </div>
           <button class="btn btn-primary">Enter Chat</button>
@@ -18,20 +21,44 @@
 </template>
 
 <script>
+import fb from "@/firebase/init";
 export default {
   name: 'Login',
   data () {
     return {
       name: "",
+      password: "",
       errorText: null
     }
   },
   methods: {
     login() {
       if (this.name) {
-        this.$router.push({name: 'Chat', params: {name: this.name}})
+        if (this.password) {
+          fb.collection('users').doc(this.name).get().then(doc => {
+            if (doc.exists) {
+              if (doc.data().password == this.password) {
+                this.$router.push({name: 'Chat', params: {name: this.name}});
+                $cookies.set('user', this.name)
+              } else {
+                this.errorText = "Error: Username taken or password incorrect."
+              }
+            } else {
+              fb.collection('users').doc(this.name).set({
+                username: this.name,
+                password: this.password
+              }).catch(err => {
+                console.log(err)
+              });
+              this.$router.push({name: 'Chat', params: {name: this.name}});
+              $cookies.set('user', this.name)
+            }
+          });
+        } else {
+          this.errorText = "Please enter password."
+        }
       } else {
-        this.errorText = "Please enter a name first."
+        this.errorText = "Please enter username."
       }
     }
   }

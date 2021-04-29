@@ -4,7 +4,8 @@
       <div class="form-group">
         <div class="input-group">
           <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1">{{ name }}:</span>
+            <span class="input-group-text" id="basic-addon1" v-if="name">{{ name }}:</span>
+            <span class="input-group-text" id="basic-addon1" v-else>{{ $cookies.get('user') }}:</span>
           </div>
           <input type="text" class="form-control" name="message" placeholder="Enter message here..." v-model="newMessage">
         </div>
@@ -29,9 +30,13 @@ export default {
   methods: {
     createMessage() {
       if (this.newMessage) {
+        var user = this.name;
+        if (!this.name) {
+          user = $cookies.get('user');
+        }
         fb.collection("messages").add({
           message: this.newMessage,
-          name: this.name,
+          name: user,
           timestamp: Date.now()
         }).catch(err => {
           console.log(err)
