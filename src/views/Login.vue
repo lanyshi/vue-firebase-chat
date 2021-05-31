@@ -17,6 +17,9 @@
         </form>
       </div>
     </div>
+    <div class="alert alert-light" role="alert">
+      First-timer? Enter chat with a new username and password!
+    </div>
   </div>
 </template>
 
@@ -64,7 +67,6 @@ export default {
   }
 }
 </script>
-
 <style scoped>
 .login{
   max-width: 450px;
