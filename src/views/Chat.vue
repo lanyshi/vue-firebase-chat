@@ -47,7 +47,7 @@ export default {
             id: doc.id,
             name: doc.data().name,
             message: doc.data().message,
-            timestamp: moment(doc.data().timestamp).format("LTS")
+            timestamp: moment(doc.data().timestamp).format("LLL")
           });
         }
       });
