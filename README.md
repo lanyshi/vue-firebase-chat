@@ -12,6 +12,7 @@ This project is guided by:
 ### Vue.js
 Vue.js is a framework for building JavaScript based single-page web applications and works well when combined with other
 web development tools or libraries.
+
 ### Firebase
 Firebase is Google's cloud development platform that helps with building modern web and mobile applications.
 One of the services it provides is Cloud Firestore which enables real-time data storage and synchronization.
@@ -73,6 +74,7 @@ While getting used to Firestore database and comparing it with MySQL and MongoDB
 is its capability to update and listen to changes in the database in real-time, especially when working with a web application like
 this. Although it is possible for MySQL and MongoDB to accomplish this as well, they require a lot of work and very specific
 infrastructure.
+
 ----
 ## Initialization
 ```bash
