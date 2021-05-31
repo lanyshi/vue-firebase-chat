@@ -12,10 +12,10 @@ This project is guided by:
 ### Vue.js
 Vue.js is a framework for building JavaScript based single-page web applications and works well when combined with other
 web development tools or libraries.
-
 ### Firebase
 Firebase is Google's cloud development platform that helps with building modern web and mobile applications.
 One of the services it provides is Cloud Firestore which enables real-time data storage and synchronization.
+
 ----
 ## Issues & Debugging
 After setting up Firebase and connecting to the server, an error appeared ```'firestore' is defined but never used```.
