@@ -31,7 +31,7 @@ export default {
   methods: {
     createMessage() {
       if (this.newMessage) {
-        var user = this.name;
+        var user = this.name;;
         if (!this.name) {
           user = $cookies.get('user');
         }

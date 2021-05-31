@@ -2,10 +2,8 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import VueChatScroll from 'vue-chat-scroll'
-
 import App from './App'
 import router from './router'
-
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -19,5 +17,3 @@ new Vue({
   components: { App },
   template: '<App/>'
 })
-
-console.log($cookies.get('user'));

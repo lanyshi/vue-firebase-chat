@@ -23,8 +23,8 @@ export default new Router({
       component: Chat,
       props: true,
       beforeEnter: (to, from, next) => {
-        if (to.params.name || $cookies.get('user') != 'undefined') {
-          console.log($cookies.get('user'));
+        var user = $cookies.get('user');
+        if (to.params.name || (user != 'undefined' && user != null)) {
           next();
         } else {
           next({name: "Login"})
