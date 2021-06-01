@@ -1,7 +1,5 @@
 <template>
   <div class="container">
-    <h2 class="header2 text-primary text-center">Real-Time Chat</h2>
-    <h5 class="text-secondary text-center">Powered by Vue.js & Firebase</h5>
     <div class="card login">
       <div class="card-body">
         <h2 class="card-title text-center">Login</h2>
@@ -74,14 +72,5 @@ export default {
   display: block;
   margin-left: auto;
   margin-right: auto;
-}
-
-.header2 {
-  font-size: 2.6em;
-  margin-bottom: 0px;
-}
-h5{
-  margin-top: 0px;
-  margin-bottom: 40px;
 }
 </style>

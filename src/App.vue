@@ -1,10 +1,12 @@
 <template>
   <div id="app">
+    <h2 class="title text-primary text-center">Real-Time Chat</h2>
+    <h5 class="subtitle text-secondary text-center">Powered by Vue.js & Firebase</h5>
     <router-view/>
     <footer>
       <cookie-law buttonClass="btn btn-primary">
         <div slot="message">
-          <p> This site uses 🍪 to ensure the best experience. </p>
+          <p> This site uses &#127850; to ensure the best experience. </p>
         </div>
       </cookie-law>
     </footer>
@@ -29,5 +31,14 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+.title {
+  font-size: 2.6em;
+  margin-bottom: 0px;
+}
+.subtitle {
+  margin-top: 0px;
+  margin-bottom: 40px;
 }
 </style>

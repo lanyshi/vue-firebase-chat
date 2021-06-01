@@ -1,7 +1,5 @@
 <template>
   <div class="container chat">
-    <h2 class="text-primary text-center">Real-Time Chat</h2>
-    <h5 class="text-secondary text-center">Powered by Vue.js & Firebase</h5>
     <div class="card">
       <div class="card-body text-left">
         <p class="text-secondary nomessages" v-if="messages.length == 0">
@@ -57,14 +55,6 @@ export default {
 </script>
 
 <style scoped>
-.chat h2{
-  font-size: 2.6em;
-  margin-bottom: 0px;
-}
-.chat h5{
-  margin-top: 0px;
-  margin-bottom: 40px;
-}
 .chat span{
   font-size: 1.2em;
 }
