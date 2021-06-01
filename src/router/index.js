@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import VueCookies from 'vue-cookies'
-import Login from '@/views/Login'
-import Chat from '@/views/Chat'
+import Login from '@/components/Login'
+import Chat from '@/components/Chat'
 
 Vue.use(Router)
 Vue.use(VueCookies);
