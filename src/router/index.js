@@ -18,7 +18,7 @@ export default new Router({
       component: Login
     },
     {
-      path: '/chat',
+      path: '/chat/:channel',
       name: 'Chat',
       component: Chat,
       props: true,
@@ -27,7 +27,7 @@ export default new Router({
         if (to.params.name || (user != 'undefined' && user != null)) {
           next();
         } else {
-          next({name: "Login"})
+          next({name: "Login"});
         }
       }
     }

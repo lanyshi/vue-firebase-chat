@@ -1,6 +1,18 @@
 <template>
   <div class="container chat">
     <div class="card">
+      <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs">
+          <li class="nav-item">
+            <a class="nav-link active" v-if="$route.params.channel == 1">Room 1</a>
+            <a class="nav-link" v-else="$route.params.channel == 1" v-on:click="switchTo(1)">Room 1</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" v-if="$route.params.channel == 2">Room 2</a>
+            <a class="nav-link" v-else="$route.params.channel == 2" v-on:click="switchTo(2)">Room 2</a>
+          </li>
+        </ul>
+      </div>
       <div class="card-body text-left">
         <p class="text-secondary nomessages" v-if="messages.length == 0">
           [No messages yet!]
@@ -14,7 +26,7 @@
         </div>
       </div>
       <div class="card-action text-left">
-        <CreateMessage :name="name"/>
+        <CreateMessage :name="name" :channel="$route.params.channel"/>
       </div>
     </div>
   </div>
@@ -36,7 +48,7 @@ export default {
     }
   },
   created() {
-    let ref = fb.collection("messages").orderBy("timestamp");
+    let ref = fb.collection("channel-" + this.$route.params.channel).orderBy("timestamp");
     ref.onSnapshot(snapshot => {
       snapshot.docChanges().forEach(change => {
         if (change.type == "added") {
@@ -50,6 +62,12 @@ export default {
         }
       });
     });
+  },
+  methods: {
+    switchTo(room) {
+      this.$router.push({path: `/chat/${room}`, params: {name: this.name}});
+      window.location.reload()
+    }
   }
 }
 </script>
@@ -65,5 +83,8 @@ export default {
 .messages{
   max-height: 300px;
   overflow: auto;
+}
+.nav-item{
+  cursor: pointer;
 }
 </style>

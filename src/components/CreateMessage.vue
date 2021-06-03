@@ -35,7 +35,7 @@ export default {
         if (!this.name) {
           user = $cookies.get('user');
         }
-        fb.collection("messages").add({
+        fb.collection("channel-"+this.$route.params.channel).add({
           message: this.newMessage,
           name: user,
           timestamp: Date.now()

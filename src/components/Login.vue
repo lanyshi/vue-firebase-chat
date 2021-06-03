@@ -11,6 +11,12 @@
             <input type="password" class="form-control" placeholder="Password" name="password" v-model="password">
             <p v-if="errorText" class="text-danger">{{ errorText }}</p>
           </div>
+          <div class="form-group">
+            <input type="radio" value="1" id="One" name="channel" v-model="channel">
+            <label for="One">Room 1</label>
+            <input type="radio" value="2" id="Two" name="channel" v-model="channel">
+            <label for="Two">Room 2</label>
+          </div>
           <button class="btn btn-primary">Enter Chat</button>
         </form>
       </div>
@@ -29,6 +35,7 @@ export default {
     return {
       name: "",
       password: "",
+      channel: "1",
       errorText: null
     }
   },
@@ -39,8 +46,8 @@ export default {
           fb.collection('users').doc(this.name).get().then(doc => {
             if (doc.exists) {
               if (doc.data().password == this.password) {
-                this.$router.push({name: 'Chat', params: {name: this.name}});
                 $cookies.set('user', this.name)
+                this.$router.push({path: `chat/${this.channel}`, params: {name: this.name}});
               } else {
                 this.errorText = "Error: Username taken or password incorrect."
               }
@@ -51,8 +58,8 @@ export default {
               }).catch(err => {
                 console.log(err)
               });
-              this.$router.push({name: 'Chat', params: {name: this.name}});
               $cookies.set('user', this.name)
+              this.$router.push({path: `chat/${this.channel}`, params: {name: this.name}});
             }
           });
         } else {
