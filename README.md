@@ -35,6 +35,9 @@ I have made a few improvements to make this application better:
 * Login feature
 * Cookies to prevent logging user out on refresh
 * Cookie consent
+* Chat Rooms
+  * Choose a chat room before entering chat
+  * Switch between rooms after login
 ----
 ## Takeaways
 ### Vue.js - Syntax
