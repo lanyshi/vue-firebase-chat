@@ -2,7 +2,7 @@
 
 A real-time chat application built with Vue.js and Firebase.
 
-[__Live Demo__](https://lanyshi.github.io/)
+[__Live Demo__](https://lanyshi.github.io/vue-firebase-chat/)
 
 This project is guided by:
 * [CodingTheSmartWay.com](https://codingthesmartway.com/building-a-real-time-chat-application-with-vue-js-and-firebase-part-1/)
