@@ -2,7 +2,7 @@
 
 A real-time chat application built with Vue.js and Firebase.
 
-[__Live Demo__](https://lanyshi.github.io/vue-firebase-chat/)
+Live Demo: [https://lanyshi.github.io/vue-firebase-chat/](https://lanyshi.github.io/vue-firebase-chat/)
 
 This project is guided by:
 * [CodingTheSmartWay.com](https://codingthesmartway.com/building-a-real-time-chat-application-with-vue-js-and-firebase-part-1/)
@@ -30,7 +30,7 @@ to
 import "firebase/firestore";
 ```
 ----
-## Further Improvements
+## Improvements Since First Deployment
 I have made a few improvements to make this application better:
 * Login feature
 * Cookies to prevent logging user out on refresh
@@ -38,6 +38,7 @@ I have made a few improvements to make this application better:
 * Chat Rooms
   * Choose a chat room before entering chat
   * Switch between rooms after login
+* Auto-fill Username from cookie
 ----
 ## Takeaways
 ### Vue.js - Syntax
