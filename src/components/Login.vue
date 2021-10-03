@@ -5,7 +5,8 @@
         <h2 class="card-title text-center">Login</h2>
         <form @submit.prevent="login" class="text-center">
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="Username" name="name" v-model="name">
+            <input v-if="!$cookies.get('user')" type="text" class="form-control" placeholder="Username" name="name" v-model="name">
+            <input v-else type="text" class="form-control" name="name" v-model="name">
           </div>
           <div class="form-group">
             <input type="password" class="form-control" placeholder="Password" name="password" v-model="password">
@@ -33,7 +34,7 @@ export default {
   name: 'Login',
   data () {
     return {
-      name: "",
+      name: $cookies.get('user'),
       password: "",
       channel: "1",
       errorText: null

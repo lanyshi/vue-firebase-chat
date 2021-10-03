@@ -49,7 +49,6 @@ export default {
       }
     },
     logout() {
-      $cookies.remove('user');
       this.$router.push({name: 'Login'});
     }
   }
