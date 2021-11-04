@@ -4,7 +4,15 @@
     <h5 class="subtitle text-secondary text-center">Powered by Vue.js & Firebase</h5>
     <router-view/>
     <footer>
-      <cookie-law buttonClass="btn btn-primary">
+      <cookie-law
+        storageName="cookieAccepted"
+        storageType="cookies"
+        buttonClass="btn btn-primary"
+        buttonDecline
+        buttonDeclineText="No, thanks!"
+        buttonDeclineClass="btn btn-secondary"
+        @accept="acceptCookies()"
+        @decline="declineCookies()">
         <div slot="message">
           <p> This site uses &#127850; to ensure the best experience. </p>
         </div>
@@ -20,6 +28,15 @@ export default {
   components: {
     CookieLaw
   },
+  methods: {
+    acceptCookies() {
+      $cookies.set("cookieAccepted", true, '7d');
+    },
+    declineCookies() {
+      $cookies.remove("user");
+      $cookies.set("cookieAccepted", false, '1d');
+    }
+  }
 }
 </script>
 
