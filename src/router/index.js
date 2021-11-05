@@ -9,6 +9,9 @@ Vue.use(VueCookies);
 
 // set default config
 Vue.$cookies.config('7d');
+if(!$cookies.get('cookieAccepted')) {
+  $cookies.remove('user');
+}
 
 export default new Router({
   routes: [
