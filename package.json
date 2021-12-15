@@ -6,8 +6,8 @@
   "author": "Natalie Shi <lanyshi@outlook.com>",
   "scripts": {
     "build": "node build/build.js",
-    "test:unit": "vue-cli-service test:unit",
     "deploy": "./deploy.sh",
+    "test": "jest",
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev"
   },
@@ -26,10 +26,9 @@
     "vue-router": "^3.0.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.15.8",
-    "@babel/preset-env": "^7.15.8",
-    "@vue/cli-plugin-unit-jest": "~4.5.0",
-    "@vue/test-utils": "^1.2.2",
+    "@babel/core": "^7.16.5",
+    "@babel/preset-env": "^7.16.5",
+    "@testing-library/vue": "^5.8.2",
     "autoprefixer": "^7.1.2",
     "babel-core": "^7.0.0-bridge.0",
     "babel-helper-vue-jsx-merge-props": "^2.0.3",
@@ -47,6 +46,7 @@
     "file-loader": "^1.1.4",
     "friendly-errors-webpack-plugin": "^1.6.1",
     "html-webpack-plugin": "^2.30.1",
+    "jest": "^24.9.0",
     "node-notifier": "^5.1.2",
     "optimize-css-assets-webpack-plugin": "^3.2.0",
     "ora": "^1.2.0",
@@ -59,6 +59,7 @@
     "shelljs": "^0.7.6",
     "uglifyjs-webpack-plugin": "^1.1.1",
     "url-loader": "^0.5.8",
+    "vue-jest": "^3.0.7",
     "vue-loader": "^13.3.0",
     "vue-style-loader": "^3.0.1",
     "vue-template-compiler": "^2.5.2",
