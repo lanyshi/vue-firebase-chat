@@ -3,16 +3,22 @@
     <div class="card login">
       <div class="card-body">
         <h2 class="card-title text-center">Login</h2>
-        <form @submit.prevent="login" class="text-center">
+        <form @submit.prevent="login">
+          <div v-if="errors.generalError" class="alert alert-danger" role="alert">
+            {{ errors.generalError }}
+          </div>
           <div class="form-group">
             <input v-if="!$cookies.get('user')" type="text" class="form-control" placeholder="Username" name="name" v-model="name">
             <input v-else type="text" class="form-control" name="name" v-model="name">
+            <div v-if="errors.usernameError" class="text-danger" id="errorText">
+              <small>{{ errors.usernameError }}</small>
+            </div>
           </div>
           <div class="form-group">
             <input type="password" class="form-control" placeholder="Password" name="password" v-model="password">
-            <p v-if="errorText" class="text-danger">{{ errorText }}</p>
+            <div v-if="errors.passwordError" class="text-danger" id="errorText"><small>{{ errors.passwordError }}</small></div>
           </div>
-          <div class="form-group">
+          <div class="form-group text-center">
             <input type="radio" value="1" id="One" name="channel" v-model="channel">
             <label for="One">Room 1</label>
             <input type="radio" value="2" id="Two" name="channel" v-model="channel">
@@ -37,37 +43,48 @@ export default {
       name: $cookies.get('user'),
       password: "",
       channel: "1",
-      errorText: null
+      errors: {
+        usernameError: null,
+        passwordError: null,
+        generalError: null
+      }
     }
   },
   methods: {
     login() {
+      this.errors.usernameError = null
+      this.errors.passwordError = null
+      this.errors.generalError = null
       if (this.name) {
-        if (this.password) {
-          fb.collection('users').doc(this.name).get().then(doc => {
-            if (doc.exists) {
-              if (doc.data().password == this.password) {
+        if (this.name.length > 20) {
+          this.errors.usernameError = "Username can't be longer than 20 characters."
+        } else {
+          if (this.password) {
+            fb.collection('users').doc(this.name).get().then(doc => {
+              if (doc.exists) {
+                if (doc.data().password == this.password) {
+                  $cookies.set('user', this.name)
+                  this.$router.push({path: `chat/${this.channel}`, params: {name: this.name}});
+                } else {
+                  this.errors.generalError = "Username taken or password incorrect."
+                }
+              } else {
+                fb.collection('users').doc(this.name).set({
+                  username: this.name,
+                  password: this.password
+                }).catch(err => {
+                  console.log(err)
+                });
                 $cookies.set('user', this.name)
                 this.$router.push({path: `chat/${this.channel}`, params: {name: this.name}});
-              } else {
-                this.errorText = "Error: Username taken or password incorrect."
               }
-            } else {
-              fb.collection('users').doc(this.name).set({
-                username: this.name,
-                password: this.password
-              }).catch(err => {
-                console.log(err)
-              });
-              $cookies.set('user', this.name)
-              this.$router.push({path: `chat/${this.channel}`, params: {name: this.name}});
-            }
-          });
-        } else {
-          this.errorText = "Please enter password."
-        }
+            });
+          } else {
+            this.errors.passwordError = "Please enter password."
+          }
+        }        
       } else {
-        this.errorText = "Please enter username."
+        this.errors.usernameError = "Please enter username."
       }
     }
   }
