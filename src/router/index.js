@@ -9,9 +9,6 @@ Vue.use(VueCookies);
 
 // set default config
 Vue.$cookies.config('7d');
-if(!$cookies.get('cookieAccepted')) {
-  $cookies.remove('user');
-}
 
 export default new Router({
   routes: [
@@ -27,6 +24,7 @@ export default new Router({
       props: true,
       beforeEnter: (to, from, next) => {
         var user = $cookies.get('user');
+        next();
         if (to.params.name || (user != 'undefined' && user != null)) {
           next();
         } else {

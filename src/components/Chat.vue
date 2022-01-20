@@ -4,12 +4,12 @@
       <div class="card-header">
         <ul class="nav nav-tabs card-header-tabs">
           <li class="nav-item">
-            <a class="nav-link active" v-if="$route.params.channel == 1">Room 1</a>
-            <a class="nav-link" v-else="$route.params.channel == 1" v-on:click="switchTo(1)">Room 1</a>
+            <a class="nav-link active" v-if="channel == 1">Room 1</a>
+            <a class="nav-link" v-else @click="switchTo(1)">Room 1</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" v-if="$route.params.channel == 2">Room 2</a>
-            <a class="nav-link" v-else="$route.params.channel == 2" v-on:click="switchTo(2)">Room 2</a>
+            <a class="nav-link active" v-if="channel == 2">Room 2</a>
+            <a class="nav-link" v-else @click="switchTo(2)">Room 2</a>
           </li>
         </ul>
       </div>
@@ -26,7 +26,7 @@
         </div>
       </div>
       <div class="card-action text-left">
-        <CreateMessage :name="name" :channel="$route.params.channel"/>
+        <CreateMessage :name="name" :channel="channel"/>
       </div>
     </div>
   </div>
@@ -38,17 +38,18 @@ import fb from "@/firebase/init";
 import moment from "moment";
 export default {
   name: "Chat",
-  props: ["name"],
   components: {
     CreateMessage
   },
   data() {
     return {
-      messages: []
+      messages: [],
+      name: this.$cookies.get('user'),
+      channel: this.$route.params.channel
     }
   },
   created() {
-    let ref = fb.collection("channel-" + this.$route.params.channel).orderBy("timestamp");
+    let ref = fb.collection("channel-" + this.channel).orderBy("timestamp");
     ref.onSnapshot(snapshot => {
       snapshot.docChanges().forEach(change => {
         if (change.type == "added") {
@@ -65,7 +66,7 @@ export default {
   },
   methods: {
     switchTo(room) {
-      this.$router.push({path: `/chat/${room}`, params: {name: this.name}});
+      this.$router.push({path: `/chat/${room}`});
       window.location.reload()
     }
   }

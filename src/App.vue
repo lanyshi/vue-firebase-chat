@@ -7,12 +7,7 @@
       <cookie-law
         storageName="cookieAccepted"
         storageType="cookies"
-        buttonClass="btn btn-primary"
-        buttonDecline
-        buttonDeclineText="No, thanks!"
-        buttonDeclineClass="btn btn-secondary"
-        @accept="acceptCookies()"
-        @decline="declineCookies()">
+        buttonClass="btn btn-primary">
         <div slot="message">
           <p> This site uses &#127850; to ensure the best experience. </p>
         </div>
@@ -27,15 +22,6 @@ export default {
   name: 'App',
   components: {
     CookieLaw
-  },
-  methods: {
-    acceptCookies() {
-      $cookies.set("cookieAccepted", true, '7d');
-    },
-    declineCookies() {
-      $cookies.remove("user");
-      $cookies.set("cookieAccepted", false, '1d');
-    }
   }
 }
 </script>

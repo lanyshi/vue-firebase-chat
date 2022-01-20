@@ -4,8 +4,7 @@
       <div class="form-group">
         <div class="input-group">
           <div class="input-group-prepend">
-            <span class="input-group-text" v-if="name">{{ name }}:</span>
-            <span class="input-group-text" v-else>{{ $cookies.get('user') }}:</span>
+            <span class="input-group-text">{{ name }}:</span>
           </div>
           <input type="text" class="form-control" name="message" placeholder="Enter message here..." v-model="newMessage">
         </div>
@@ -24,6 +23,7 @@ export default {
   props: ["name"],
   data() {
     return {
+      channel: this.$route.params.channel,
       newMessage: null,
       errorText: null
     }
@@ -32,10 +32,7 @@ export default {
     createMessage() {
       if (this.newMessage) {
         var user = this.name;;
-        if (!this.name) {
-          user = $cookies.get('user');
-        }
-        fb.collection("channel-"+this.$route.params.channel).add({
+        fb.collection("channel-"+this.channel).add({
           message: this.newMessage,
           name: user,
           timestamp: Date.now()

@@ -64,7 +64,7 @@ export default {
               if (doc.exists) {
                 if (doc.data().password == this.password) {
                   $cookies.set('user', this.name)
-                  this.$router.push({path: `chat/${this.channel}`, params: {name: this.name}});
+                  this.$router.push({path: `chat/${this.channel}`});
                 } else {
                   this.errors.generalError = "Username taken or password incorrect."
                 }
@@ -76,7 +76,7 @@ export default {
                   console.log(err)
                 });
                 $cookies.set('user', this.name)
-                this.$router.push({path: `chat/${this.channel}`, params: {name: this.name}});
+                this.$router.push({path: `chat/${this.channel}`});
               }
             });
           } else {
