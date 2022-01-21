@@ -12,12 +12,16 @@
             <input type="password" :class="{'form-control': true, 'is-invalid': errors.passwordError || errors.generalError}" placeholder="Password" name="password" v-model="password">
             <small v-if="errors.passwordError" class="text-danger" id="errorText">{{ errors.passwordError }}</small>
             <small v-else-if="errors.generalError" class="text-danger" id="errorText">{{ errors.generalError }}</small>
-          </div>
+          </div>          
           <div class="form-group text-center">
-            <input type="radio" value="1" id="One" name="channel" v-model="channel">
-            <label for="One">Room 1</label>
-            <input type="radio" value="2" id="Two" name="channel" v-model="channel">
-            <label for="Two">Room 2</label>
+            <div class="custom-control custom-radio">
+              <input class="custom-control-input" type="radio" id="chatMode1" value="public" v-model="mode" checked>
+              <label class="custom-control-label" for="chatMode1">Public Chat</label>
+            </div>
+            <div class="custom-control custom-radio">
+              <input class="custom-control-input" type="radio" id="chatMode2" value="private" v-model="mode">
+              <label class="custom-control-label" for="chatMode2">Private Chat</label>
+            </div>
           </div>
           <button class="btn btn-primary">Enter Chat</button>
         </form>
@@ -37,7 +41,7 @@ export default {
     return {
       name: $cookies.get('user'),
       password: "",
-      channel: "1",
+      mode: "public",
       errors: {
         usernameError: null,
         passwordError: null,
@@ -69,7 +73,11 @@ export default {
           if (doc.exists) {
             if (doc.data().password == this.password) {
               $cookies.set('user', this.name)
-              this.$router.push({path: `chat/${this.channel}`});
+              if (this.mode == 'public') {
+                this.$router.push({path: 'chat/1'});
+              } else {
+                this.$router.push({path: 'enter/private-chat/'});
+              }
             } else {
               this.errors.generalError = "Username taken or password incorrect."
             }

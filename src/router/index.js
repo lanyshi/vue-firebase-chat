@@ -1,16 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import VueCookies from 'vue-cookies'
 import Login from '@/components/Login'
 import Chat from '@/components/Chat'
 import PrivateChatLogin from '@/components/PrivateChatLogin'
 import PrivateChat from '@/components/PrivateChat'
 
 Vue.use(Router)
-Vue.use(VueCookies);
-
-// set default config
-Vue.$cookies.config('7d');
 
 export default new Router({
   routes: [

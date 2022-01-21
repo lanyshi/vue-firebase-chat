@@ -5,10 +5,10 @@
         <ul class="nav nav-tabs card-header-tabs" role="tablist">
           <PublicChatDropdown />
           <li class="nav-item">
-            <a class="nav-link active"><BootstrapIcon class="mr-1" icon="lock"/>Private Chat</a>
+            <a class="nav-link active"><BootstrapIcon class="mr-2" icon="lock"/>Private Chat</a>
           </li>
           <li class="nav-item" v-for="(_pin, _id) in previousRooms" :key="_id">
-            <router-link class="nav-link" :to="{path: `/private-chat/${_id}`}" @click.native="$router.go()"><BootstrapIcon class="mr-1" icon="lock"/>{{ _id }}</router-link>
+            <router-link class="nav-link" :to="{path: `/private-chat/${_id}`}" @click.native="$router.go()"><BootstrapIcon class="mr-2" icon="lock"/>{{ _id }}</router-link>
           </li>
           <Logout />
         </ul>
@@ -16,17 +16,17 @@
       <div class="card-body">
         <ul class="nav nav-tabs form justify-content-center">
           <li class="nav-item">
-            <a class="nav-link active" v-if="action == 'enter'">Enter Private Chat</a>
-            <a class="nav-link" v-else @click="go('/enter/private-chat')">Enter Private Chat</a>
+            <a class="nav-link active" v-if="action == 'enter'"><BootstrapIcon class="mr-2" icon="box-arrow-in-right"/>Enter Chat Room</a>
+            <a class="nav-link" v-else @click="go('/enter/private-chat')"><BootstrapIcon class="mr-2" icon="box-arrow-in-right"/>Enter Chat Room</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" v-if="action == 'create'">Create Private Chat</a>
-            <a class="nav-link" v-else @click="go('/create/private-chat')">Create Private Chat</a>
+            <a class="nav-link active" v-if="action == 'create'"><BootstrapIcon class="mr-2" icon="plus-circle"/>Create Chat Room</a>
+            <a class="nav-link" v-else @click="go('/create/private-chat')"><BootstrapIcon class="mr-2" icon="plus-circle"/>Create Chat Room</a>
           </li>
         </ul>
         <form @submit.prevent>
           <div class="form-group text-left">
-            <input type="text" :class="{'form-control': true, 'is-invalid': errors.invalidId}" placeholder="Room ID" name="id" v-model="id" maxlength="18">
+            <input type="text" :class="{'form-control': true, 'is-invalid': errors.invalidId}" placeholder="Room ID" name="id" v-model="id" maxlength="20">
           </div>
           <div class="form-group text-left">
             <input type="password" :class="{'form-control': true, 'is-invalid': errors.invalidPin}" placeholder="4-digit Pin" name="pin" v-model="pin" maxlength="4">
