@@ -35,10 +35,12 @@ I have made a few improvements to make this application better:
 * Login feature
 * Cookies to prevent logging user out on refresh
 * Cookie consent
-* Chat Rooms
+* Auto-fill Username from cookie
+* Public/Private Chat Rooms
   * Choose a chat room before entering chat
   * Switch between rooms after login
-* Auto-fill Username from cookie
+  * Create a private chat room with a unique room ID and a 4-digit pin.
+  * Enter a private chat room with an ID and a pin.
 ----
 ## Takeaways
 ### Vue.js - Syntax
