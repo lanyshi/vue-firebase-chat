@@ -4,10 +4,7 @@
     <h5 class="subtitle text-secondary text-center">Powered by Vue.js & Firebase</h5>
     <router-view/>
     <footer>
-      <cookie-law
-        storageName="cookieAccepted"
-        storageType="cookies"
-        buttonClass="btn btn-primary">
+      <cookie-law buttonClass="btn btn-primary">
         <div slot="message">
           <p> This site uses &#127850; to ensure the best experience. </p>
         </div>
@@ -18,6 +15,7 @@
 
 <script>
 import CookieLaw from 'vue-cookie-law';
+
 export default {
   name: 'App',
   components: {

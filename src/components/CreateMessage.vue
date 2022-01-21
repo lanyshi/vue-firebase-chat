@@ -7,46 +7,58 @@
             <span class="input-group-text">{{ name }}:</span>
           </div>
           <input type="text" class="form-control" name="message" placeholder="Enter message here..." v-model="newMessage">
+          <div class="input-group-append">
+            <button type="submit" class="btn btn-primary" name="action">Send</button>
+          </div>
         </div>
-        <p class="text-danger" v-if="errorText">{{ errorText }}</p>
+        <small v-if="errorText" class="text-danger" id="errorText">{{ errorText }}</small>
       </div>
-      <button type="submit" class="btn btn-primary" name="action">Submit</button>
-      <button type="button" class="btn btn-secondary float-right" v-on:click="logout">Log Out</button>
     </form>
   </div>
 </template>
 
 <script>
 import fb from "@/firebase/init";
+
 export default {
   name: "CreateMessage",
-  props: ["name"],
+  props: ["name", "mode"],
   data() {
     return {
       channel: this.$route.params.channel,
       newMessage: null,
-      errorText: null
+      errorText: null,
+      oldMessages: []
     }
   },
   methods: {
     createMessage() {
       if (this.newMessage) {
         var user = this.name;;
-        fb.collection("channel-"+this.channel).add({
-          message: this.newMessage,
-          name: user,
-          timestamp: Date.now()
-        }).catch(err => {
-          console.log(err)
-        });
-        this.newMessage = null;
-        this.errorText = null;
+        if (this.mode == "public") {
+          fb.collection('public-channels').doc(this.channel).collection('chat-history').add({
+            message: this.newMessage,
+            name: user,
+            timestamp: Date.now()
+          }).catch(err => {
+            console.log(err)
+          });
+          this.newMessage = null;
+          this.errorText = null;
+        } else {
+          fb.collection('private-channels').doc(this.channel).collection('chat-history').add({
+            message: this.newMessage,
+            name: user,
+            timestamp: Date.now()
+          }).catch(err => {
+            console.log(err)
+          });
+          this.newMessage = null;
+          this.errorText = null;
+        }
       } else {
         this.errorText = "A message must be entered first.";
       }
-    },
-    logout() {
-      this.$router.push({name: 'Login'});
     }
   }
 }
