@@ -37,7 +37,7 @@ I have made a few improvements to make this application better:
 * Cookie consent
 * Auto-fill Username from cookie
 * Public/Private Chat Rooms
-  * Choose a chat room before entering chat
+  * Choose between public and private chats before entering chat
   * Switch between rooms after login
   * Create a private chat room with a unique room ID and a 4-digit pin.
   * Enter a private chat room with an ID and a pin.
