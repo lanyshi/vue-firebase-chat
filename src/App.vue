@@ -15,7 +15,6 @@
 
 <script>
 import CookieLaw from 'vue-cookie-law';
-
 export default {
   name: 'App',
   components: {

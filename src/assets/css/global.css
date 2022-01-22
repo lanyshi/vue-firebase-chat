@@ -1,0 +1,17 @@
+.messages span{
+  font-size: 1.2em;
+}
+.messages .time{
+  display: block;
+  font-size: 0.7em;
+}
+.messages{
+  max-height: 300px;
+  overflow: auto;
+}
+[class="nav-link"]:hover{
+  cursor: pointer;
+}
+[class="nav-link"]{
+  white-space: inherit;
+}

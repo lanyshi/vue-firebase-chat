@@ -6,6 +6,7 @@ import App from './App'
 import router from './router'
 import VueCookies from 'vue-cookies'
 import '@/mixins/general'
+import "@/assets/css/global.css"
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import BootstrapIcon from '@dvuckovic/vue-bootstrap-icons';
