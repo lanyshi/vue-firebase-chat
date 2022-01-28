@@ -20,8 +20,8 @@
               </div>
               <div class="form-group text-left">
                 <input type="password" :class="{'form-control': true, 'is-invalid': errors.invalidPin}" placeholder="4-digit Pin" name="pin" v-model="pin" maxlength="4">
+                <small class="text-black-50">(Example: 0123)</small><br>
                 <small v-if="errors.message" class="text-danger" id="errorText">{{ errors.message }}</small>
-                <small v-else class="text-black-50">(Example: 0123)</small><br>
               </div>
               <button class="btn btn-outline-primary" v-if="action == 'enter'">Go</button>
               <button class="btn btn-outline-primary" v-else>Go</button>
@@ -50,7 +50,8 @@ export default {
       errors: {
         invalidId: false,
         invalidPin: false,
-        message: null
+        message: null,
+        longId: false
       },
       enteredRooms: {}
     }
