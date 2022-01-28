@@ -102,7 +102,7 @@ export default {
 </script>
 <style scoped>
 .container {
-  margin-top: 10%;
+  margin-top: 150px;
 }
 .login, button {
   width: 350px;
