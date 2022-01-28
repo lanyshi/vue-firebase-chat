@@ -12,19 +12,19 @@
                 <h5 class="nav-link disabled"><BootstrapIcon class="mr-2" icon="lock"/></h5>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" v-if="action == 'enter'"><BootstrapIcon class="mr-2" icon="box-arrow-in-right"/>Enter</a>
-                <a class="nav-link" v-else @click="go('/enter/private-chat')"><BootstrapIcon class="mr-2" icon="box-arrow-in-right"/>Enter</a>
+                <a class="nav-link active" v-if="action == 'enter'"><BootstrapIcon class="mr-2" icon="box-arrow-in-right"/>Enter Chat</a>
+                <a class="nav-link" v-else @click="go('/enter/private-chat')"><BootstrapIcon class="mr-2" icon="box-arrow-in-right"/>Enter Chat</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" v-if="action == 'create'"><BootstrapIcon class="mr-2" icon="plus-circle"/>Create</a>
-                <a class="nav-link" v-else @click="go('/create/private-chat')"><BootstrapIcon class="mr-2" icon="plus-circle"/>Create</a>
+                <a class="nav-link active" v-if="action == 'create'"><BootstrapIcon class="mr-2" icon="plus-circle"/>Create Chat</a>
+                <a class="nav-link" v-else @click="go('/create/private-chat')"><BootstrapIcon class="mr-2" icon="plus-circle"/>Create Chat</a>
               </li>
             </ul>
           </div>
           <div class="card-body">
             <form @submit.prevent>
-              <p v-if="action == 'enter'">Enter Private Chat Room</p>
-              <p v-else>Create Private Chat Room</p>
+              <p v-if="action == 'enter'">Enter A Private Chat Room</p>
+              <p v-else>Create A Private Chat Room</p>
               <div class="form-group text-left mb-1">
                 <input type="text" :class="{'form-control': true, 'is-invalid': errors.invalidId}" placeholder="Room ID" name="id" v-model="id" maxlength="20">
                 <small class="text-black-50">ID can't be longer than 20 characters.</small>
@@ -32,6 +32,7 @@
               <div class="form-group text-left">
                 <input type="password" :class="{'form-control': true, 'is-invalid': errors.invalidPin}" placeholder="4-digit Pin" name="pin" v-model="pin" maxlength="4">
                 <small v-if="errors.message" class="text-danger" id="errorText">{{ errors.message }}</small>
+                <small v-else class="text-black-50">(Example: 0123)</small><br>
               </div>
               <button class="btn btn-outline-primary" v-if="action == 'enter'" @click="enter">Go</button>
               <button class="btn btn-outline-primary" v-else @click="create">Go</button>
@@ -78,14 +79,18 @@ export default {
       this.errors.message = null
 
       let is_valid = true;
-      if (!this.id || !this.pin || this.pin.length < 4) {
-        if (!this.id) {
-          this.errors.invalidId = true;
-          this.errors.message = "Please fill out required fields.";
-        } 
+      if (!this.id || !this.pin || this.pin.length < 4 || !new RegExp(/^\d+$/).test(this.pin)) {
+        if (!new RegExp(/^\d+$/).test(this.pin)) {
+          this.errors.invalidPin = true;
+          this.errors.message = "Must contain only numbers."
+        }
         if (this.pin.length < 4) {
           this.errors.invalidPin = true;
           this.errors.message = "Must be 4 digits.";
+        }
+        if (!this.id) {
+          this.errors.invalidId = true;
+          this.errors.message = "Please fill out required fields.";
         }
         if (!this.pin) {
           this.errors.invalidPin = true;

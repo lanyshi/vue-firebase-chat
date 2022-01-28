@@ -39,7 +39,6 @@ export default {
   methods: {
     logout() {
       this.$router.push({name: 'Login'});
-      $cookies.remove('previous-chats');
     }
   }
 }
