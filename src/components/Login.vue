@@ -87,7 +87,11 @@ export default {
               console.log(err)
             });
             $cookies.set('user', this.name)
-            this.$router.push({path: `public-chat/${this.channel}`});
+            if (this.mode == 'public') {
+              this.$router.push({path: 'public-chat/1'});
+            } else {
+              this.$router.push({path: 'enter/private-chat/'});
+            }
           }
         });
       }
