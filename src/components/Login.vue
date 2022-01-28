@@ -5,7 +5,7 @@
         <h2 class="card-title text-center">Login</h2>
         <form @submit.prevent="login">
           <div class="form-group text-left">
-            <input type="text" :class="{'form-control': true, 'is-invalid': errors.usernameError || errors.generalError}" placeholder="Username" name="name" v-model="name">
+            <input type="text" :class="{'form-control': true, 'is-invalid': errors.usernameError || errors.generalError}" placeholder="Username" name="name" v-model="name" maxlength="20">
             <small v-if="errors.usernameError" class="text-danger" id="errorText">{{ errors.usernameError }}</small>
           </div>
           <div class="form-group text-left">
@@ -50,25 +50,25 @@ export default {
     }
   },
   methods: {
-    login() {
+    validateForm() {
       this.errors.usernameError = null
       this.errors.passwordError = null
       this.errors.generalError = null
 
       let is_valid = true;
-      if (!this.name) {
-        this.errors.usernameError = "Please enter a username.";
+      if(!this.name || !this.password) {
         is_valid = false;
+        if (!this.name) {
+          this.errors.usernameError = "Please enter a username.";
+        }
+        if (!this.password) {
+          this.errors.passwordError = "Please enter password."
+        }
       }
-      if (!this.password) {
-        this.errors.passwordError = "Please enter password."
-        is_valid = false;
-      }
-      if (this.name.length > 20) {
-        this.errors.usernameError = "Username can't be longer than 20 characters."
-        is_valid = false;
-      }
-      if (is_valid) {
+      return is_valid;
+    },
+    login() {
+      if (this.validateForm()) {
         fb.collection('users').doc(this.name).get().then(doc => {
           if (doc.exists) {
             if (doc.data().password == this.password) {

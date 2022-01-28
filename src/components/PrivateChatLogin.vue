@@ -22,7 +22,7 @@
             </ul>
           </div>
           <div class="card-body">
-            <form @submit.prevent>
+            <form @submit.prevent="onSubmit">
               <p v-if="action == 'enter'">Enter A Private Chat Room</p>
               <p v-else>Create A Private Chat Room</p>
               <div class="form-group text-left mb-1">
@@ -50,7 +50,6 @@ import fb from "@/firebase/init";
 
 export default {
   name: "PrivateChatLogin",
-  props: ["channel"],
   components: {
     SideNavigation
   },
@@ -80,6 +79,7 @@ export default {
 
       let is_valid = true;
       if (!this.id || !this.pin || this.pin.length < 4 || !new RegExp(/^\d+$/).test(this.pin)) {
+        is_valid = false;
         if (!new RegExp(/^\d+$/).test(this.pin)) {
           this.errors.invalidPin = true;
           this.errors.message = "Must contain only numbers."
@@ -96,9 +96,15 @@ export default {
           this.errors.invalidPin = true;
           this.errors.message = "Please fill out required fields.";
         }
-        is_valid = false;
       }
       return is_valid;
+    },
+    onSubmit() {
+      if(this.action == 'enter') {
+        this.enter()
+      } else {
+        this.create()
+      }
     },
     enter() {
       if (this.validateForm()) {
