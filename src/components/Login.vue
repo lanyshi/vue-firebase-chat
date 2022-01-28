@@ -70,12 +70,7 @@ export default {
         fb.collection('users').doc(this.name).get().then(doc => {
           if (doc.exists) {
             if (doc.data().password == this.password) {
-              $cookies.set('user', this.name)
-              if (this.mode == 'public') {
-                this.$router.push({path: 'public-chat/1'});
-              } else {
-                this.$router.push({path: 'enter/private-chat/'});
-              }
+              this.enter()
             } else {
               this.errors.generalError = "Username taken or password incorrect."
             }
@@ -86,14 +81,17 @@ export default {
             }).catch(err => {
               console.log(err)
             });
-            $cookies.set('user', this.name)
-            if (this.mode == 'public') {
-              this.$router.push({path: 'public-chat/1'});
-            } else {
-              this.$router.push({path: 'enter/private-chat/'});
-            }
+            this.enter()
           }
         });
+      }
+    },
+    enter() {
+      $cookies.set('user', this.name)
+      if (this.mode == 'public') {
+        this.$router.push({path: 'public-chat/1'});
+      } else {
+        this.$router.push({path: 'enter/private-chat/'});
       }
     }
   },

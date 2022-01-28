@@ -58,7 +58,6 @@ export default {
   name: "SideNavigation",
   props: ["mode"],
   data() {
-    console.log(this.channel == 2)
     return {
       enteredRooms: {}
     }

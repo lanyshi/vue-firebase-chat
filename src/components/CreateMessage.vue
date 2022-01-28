@@ -36,7 +36,7 @@ export default {
       if (this.newMessage) {
         var user = this.name;;
         if (this.mode == "public") {
-          fb.collection('public-channels').doc(this.channel).collection('chat-history').add({
+          fb.collection('public-channels').doc('channel-'+this.channel).collection('chat-history').add({
             message: this.newMessage,
             name: user,
             timestamp: Date.now()
