@@ -46,10 +46,10 @@ export default {
   },
   data() {
     return {
+      name: $cookies.get('users').names[$cookies.get('users').names.length - 1],
       mode: "public",
       messages: [],
-      name: this.$cookies.get('user'),
-      channel: this.$route.params.channel,
+      channel: this.$route.params.channel
     }
   },
   created() {

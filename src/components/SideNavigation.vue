@@ -59,12 +59,13 @@ export default {
   props: ["mode"],
   data() {
     return {
+      name: $cookies.get('users').names[$cookies.get('users').names.length - 1],
       enteredRooms: {}
     }
   },
   created() {
-    if ($cookies.get('previous-chats')) {
-      this.enteredRooms = $cookies.get('previous-chats');
+    if ($cookies.get(this.name)) {
+      this.enteredRooms = $cookies.get(this.name)
     }
   },
   methods: {

@@ -14,7 +14,7 @@
           <input type="password" :class="{'form-control': true, 'is-invalid': errors.passwordError || errors.generalError}" placeholder="Password" name="password" v-model="password">
           <small v-if="errors.passwordError" class="text-danger" id="errorText">{{ errors.passwordError }}</small>
           <small v-else-if="errors.generalError" class="text-danger" id="errorText">{{ errors.generalError }}</small>
-        </div>          
+        </div>
         <div class="form-inline mt-3 mb-4">
           <div class="custom-control custom-radio mr-3">
             <input class="custom-control-input" type="radio" id="chatMode1" value="public" v-model="mode" checked>
@@ -37,7 +37,7 @@ export default {
   name: 'Login',
   data () {
     return {
-      name: $cookies.get('user'),
+      name: "",
       password: "",
       mode: "public",
       errors: {
@@ -77,7 +77,8 @@ export default {
           } else {
             fb.collection('users').doc(this.name).set({
               username: this.name,
-              password: this.password
+              password: this.password,
+              enteredChats: []
             }).catch(err => {
               console.log(err)
             });
@@ -87,17 +88,34 @@ export default {
       }
     },
     enter() {
-      $cookies.set('user', this.name)
+      this.updateCookie()
       if (this.mode == 'public') {
         this.$router.push({path: 'public-chat/1'});
       } else {
         this.$router.push({path: 'enter/private-chat/'});
       }
+    },
+    updateCookie() {
+      if($cookies.get('users')) {
+        var names = $cookies.get('users').names
+        names.indexOf(this.name) === -1 ?
+        $cookies.set('users', {names: [...names, this.name]}) :
+        $cookies.set('users', {names: [...names.splice(names.indexOf(this.name, 1)), this.name]})
+        if(names.indexOf(this.name) === -1) {
+          $cookies.set('users', {names: [...names, this.name]})
+          $cookies.set(this.name, {})
+        } else {
+          $cookies.set('users', {names: [...names.splice(names.indexOf(this.name, 1)), this.name]})
+        }
+      } else {
+        $cookies.set('users', {names:[this.name]})
+        $cookies.set(this.name, {})
+      }
     }
   },
   created() {
-    if ($cookies.get('user')) {
-      this.name = $cookies.get('user');
+    if ($cookies.get('users')) {
+      this.name = $cookies.get('users').names[$cookies.get('users').names.length-1];
     }
   }
 }

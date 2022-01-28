@@ -45,6 +45,7 @@ export default {
   data() {
     return {
       action: this.$route.params.action,
+      name: $cookies.get('users').names[$cookies.get('users').names.length - 1],
       id: "",
       pin: "",
       errors: {
@@ -57,9 +58,8 @@ export default {
     }
   },
   created() {
-    if ($cookies.get('previous-chats')) {
-      this.enteredRooms = $cookies.get('previous-chats');
-      console.log(this.enteredRooms)
+    if ($cookies.get(this.name)) {
+      this.enteredRooms = $cookies.get(this.name)
     }
   },
   methods: {
@@ -102,8 +102,8 @@ export default {
         fb.collection('private-channels').doc(this.id).get().then(doc => {
           if (doc.exists) {
             if (doc.data().pin == this.pin) {
-              this.enteredRooms[this.id] = this.pin;
-              $cookies.set('previous-chats', this.enteredRooms);
+              this.enteredRooms[this.id] = this.pin
+              $cookies.set(this.name, this.enteredRooms)
               this.$router.push({path: `/private-chat/${this.id}`})
             } else {
               this.errors.message = "Incorrect ID and Pin combination.";
@@ -131,8 +131,8 @@ export default {
             }).catch(err => {
               console.log(err)
             });
-            this.enteredRooms[this.id] = this.pin;
-            $cookies.set('previous-chats', this.enteredRooms);
+            this.enteredRooms[this.id] = this.pin
+            $cookies.set(this.name, this.enteredRooms)
             this.$router.push({path: `/private-chat/${this.id}`})
           }
         });

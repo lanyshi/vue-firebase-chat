@@ -20,7 +20,7 @@ export default new Router({
       component: Chat,
       props: true,
       beforeEnter: (to, from, next) => {
-        var user = $cookies.get('user');
+        var user = $cookies.get('users').names[$cookies.get('users').names.length - 1];
         next();
         if (to.params.name || (user != 'undefined' && user != null)) {
           next();
@@ -34,7 +34,7 @@ export default new Router({
       name: 'PrivateChatLogin',
       component: PrivateChatLogin,
       beforeEnter: (to, from, next) => {
-        var user = $cookies.get('user');
+        var user = $cookies.get('users').names[$cookies.get('users').names.length - 1];
         next();
         if (to.params.name || (user != 'undefined' && user != null)) {
           next();
@@ -48,7 +48,7 @@ export default new Router({
       name: 'PrivateChat',
       component: PrivateChat,
       beforeEnter: (to, from, next) => {
-        var user = $cookies.get('user');
+        var user = $cookies.get('users').names[$cookies.get('users').names.length - 1];
         next();
         if (to.params.name || (user != 'undefined' && user != null)) {
           next();

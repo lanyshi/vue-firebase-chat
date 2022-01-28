@@ -27,7 +27,7 @@
           </div>
         </div>
         <div class="card-action text-left">
-          <CreateMessage :name="$cookies.get('user')" :mode="mode" />
+          <CreateMessage :name="name" :mode="mode" />
         </div>
       </div>
     </div>
@@ -49,6 +49,7 @@ export default {
   },
   data() {
     return {
+      name: $cookies.get('users').names[$cookies.get('users').names.length - 1],
       mode: "private",
       channel: this.$route.params.channel,
       messages: [],
@@ -71,7 +72,7 @@ export default {
         }
       });
     });
-    this.enteredRooms = $cookies.get('previous-chats');
+    this.enteredRooms = $cookies.get(this.name);
     this.pin = this.enteredRooms[this.channel];
   }
 }
