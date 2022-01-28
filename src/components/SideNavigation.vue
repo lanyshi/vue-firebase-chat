@@ -1,32 +1,64 @@
 <template>
-  <div class="card text-left">
-    <div class="list-group list-group-flush">
-      <a class="list-group-item list-group-item-action dropdown-toggle" data-toggle="collapse" data-target="#public-chats-collapse" role="button" aria-expanded="false"><BootstrapIcon class="mr-2" icon="chat"/>Public Chat</a>
-      <ul class="nav flex-column collapse" id="public-chats-collapse">
+  <ul class="nav flex-column nav-pills">
+    <li class="nav-item">
+      <a :class="['nav-link', {active: mode.includes('public')}]" role="button" data-toggle="collapse" data-target="#public-chats-collapse">
+        <div class="row align-items-center">
+          <BootstrapIcon class="col-md-auto px-0" icon="chat"/>
+          <div class="col">Public Chat</div>
+        </div>
+      </a>
+      <ul :class="['nav', 'flex-column', 'collapse', {show: mode.includes('public')}]" id="public-chats-collapse">
         <li class="nav-item">
-          <a class="nav-link text-secondary" @click="go('/chat/1')">Channel 1</a>
-          <a class="nav-link text-secondary border-bottom" @click="go('/chat/2')">Channel 2</a>
+          <a :class="['nav-link', 'text-secondary', {'sub-active': mode == 'public-1'}]" @click="go('/public-chat/1')">Channel 1</a>
+          <a :class="['nav-link', 'text-secondary', {'sub-active': mode == 'public-2'}]" @click="go('/public-chat/2')">Channel 2</a>
         </li>
       </ul>
-      <a class="list-group-item list-group-item-action dropdown-toggle" data-toggle="collapse" data-target="#private-chats-collapse" role="button" aria-expanded="false"><BootstrapIcon class="mr-2" icon="lock"/>Private Chat</a>
-      <ul class="nav flex-column collapse" id="private-chats-collapse">
+    </li>
+    <li class="nav-item">
+      <a :class="['nav-link', {active: !mode.includes('public')}]" role="button" data-toggle="collapse" data-target="#private-chats-collapse">
+        <div class="row align-items-center">
+          <BootstrapIcon class="col-md-auto px-0" icon="lock"/>
+          <div class="col">Private Chat</div>
+        </div>
+      </a>
+      <ul :class="['nav', 'flex-column', 'collapse', {show: !mode.includes('public')}]" id="private-chats-collapse">
         <li class="nav-item">
-          <router-link class="nav-link text-secondary" to="/enter/private-chat" @click.native="$router.go()">Enter a private chat room</router-link>
-          <div class="past-rooms border-bottom" v-chat-scroll="{always: false, smooth: true}">
-            <router-link class="nav-link text-secondary" v-for="(_pin, _id) in enteredRooms" :key="_id" :to="{path: `/private-chat/${_id}`}" @click.native="$router.go()"><BootstrapIcon class="mr-2" icon="unlock"/>{{ _id }}</router-link>
+          <a :class="['nav-link', 'text-secondary', {'sub-active': mode == 'private-enter'}]" @click="go('/enter/private-chat')">
+            <div class="row align-items-center">
+              <BootstrapIcon class="col-md-auto px-0" icon="box-arrow-in-right"/>
+              <div class="col">Enter a private chat room</div>
+            </div>
+          </a>
+          <a :class="['nav-link', 'text-secondary', {'sub-active': mode == 'private-create'}]" @click="go('/create/private-chat')">
+            <div class="row align-items-center">
+              <BootstrapIcon class="col-md-auto px-0" icon="plus-circle"/>
+              <div class="col">Create a private chat room</div>
+            </div>
+          </a>
+          <div v-if="Object.keys(enteredRooms).length" class="dropdown-divider"></div>
+          <div v-if="mode != 'unlocked'">
+            <router-link :class="['nav-link', 'text-secondary', {'sub-active': mode == 'unlocked-'+_id}]" v-for="(_pin, _id) in enteredRooms" :key="_id" :to="{path: `/private-chat/${_id}`}" @click.native="$router.go()">{{ _id }}</router-link>
           </div>
-          <router-link class="nav-link text-secondary border-bottom" to="/create/private-chat" @click.native="$router.go()">Create a private chat room</router-link>
         </li>
       </ul>
-      <a class="list-group-item list-group-item-action text-danger" role="button" @click="logout"><BootstrapIcon class="mr-2" icon="box-arrow-left"/>Log Out</a>
-    </div>
-  </div>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link text-danger" role="button" @click="logout">
+        <div class="row align-items-center">
+          <BootstrapIcon class="col-md-auto px-0" icon="box-arrow-left"/>
+          <div class="col">Log Out</div>
+        </div>
+      </a>
+    </li>
+  </ul>
 </template>
 
 <script>
 export default {
   name: "SideNavigation",
+  props: ["mode"],
   data() {
+    console.log(this.channel == 2)
     return {
       enteredRooms: {}
     }
@@ -44,28 +76,15 @@ export default {
 }
 </script>
 <style scoped>
-.dropdown-item{
-  white-space: inherit !important;
-  color: #495057;
-}
-.dropdown-item:hover{
-  cursor: pointer;
-}
-.list-group-item{
-  color: #007bff
-}
-.nav-link:hover{
-  background-color: #f8f9fa;
-}
 a{
-  white-space: inherit;
-}
-.past-rooms{
-  max-height: 100px;
-  overflow: auto;
-}
-[class~="nav-link"]{
-  font-size: 0.93rem;
   cursor: pointer;
+}
+ul li ul li a{
+  font-size: 0.9rem;
+  margin: 0.5em 0;
+}
+.sub-active{
+  background-color: #f8f9fa;
+  border-radius: 0;
 }
 </style>

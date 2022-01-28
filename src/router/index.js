@@ -15,7 +15,7 @@ export default new Router({
       component: Login
     },
     {
-      path: '/chat/:channel',
+      path: '/public-chat/:channel',
       name: 'Chat',
       component: Chat,
       props: true,

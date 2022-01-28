@@ -1,34 +1,32 @@
 <template>
   <div class="container">
-    <div class="card login">
-      <div class="card-body">
-        <h2 class="card-title text-center">Login</h2>
-        <form @submit.prevent="login">
-          <div class="form-group text-left">
-            <input type="text" :class="{'form-control': true, 'is-invalid': errors.usernameError || errors.generalError}" placeholder="Username" name="name" v-model="name" maxlength="20">
-            <small v-if="errors.usernameError" class="text-danger" id="errorText">{{ errors.usernameError }}</small>
-          </div>
-          <div class="form-group text-left">
-            <input type="password" :class="{'form-control': true, 'is-invalid': errors.passwordError || errors.generalError}" placeholder="Password" name="password" v-model="password">
-            <small v-if="errors.passwordError" class="text-danger" id="errorText">{{ errors.passwordError }}</small>
-            <small v-else-if="errors.generalError" class="text-danger" id="errorText">{{ errors.generalError }}</small>
-          </div>          
-          <div class="form-group text-center">
-            <div class="custom-control custom-radio">
-              <input class="custom-control-input" type="radio" id="chatMode1" value="public" v-model="mode" checked>
-              <label class="custom-control-label" for="chatMode1">Public Chat</label>
-            </div>
-            <div class="custom-control custom-radio">
-              <input class="custom-control-input" type="radio" id="chatMode2" value="private" v-model="mode">
-              <label class="custom-control-label" for="chatMode2">Private Chat</label>
-            </div>
-          </div>
-          <button class="btn btn-primary">Enter Chat</button>
-        </form>
+    <div class="login">
+      <h2 class="title text-primary">Login to Chat</h2>
+      <div class="alert alert-light px-0" role="alert">
+        First-timer? Enter chat with a new username and password!
       </div>
-    </div>
-    <div class="alert alert-light" role="alert">
-      First-timer? Enter chat with a new username and password!
+      <form @submit.prevent="login">
+        <div class="form-group text-left">
+          <input type="text" :class="{'form-control': true, 'is-invalid': errors.usernameError || errors.generalError}" placeholder="Username" name="name" v-model="name" maxlength="20">
+          <small v-if="errors.usernameError" class="text-danger" id="errorText">{{ errors.usernameError }}</small>
+        </div>
+        <div class="form-group text-left">
+          <input type="password" :class="{'form-control': true, 'is-invalid': errors.passwordError || errors.generalError}" placeholder="Password" name="password" v-model="password">
+          <small v-if="errors.passwordError" class="text-danger" id="errorText">{{ errors.passwordError }}</small>
+          <small v-else-if="errors.generalError" class="text-danger" id="errorText">{{ errors.generalError }}</small>
+        </div>          
+        <div class="form-inline mt-3 mb-4">
+          <div class="custom-control custom-radio mr-3">
+            <input class="custom-control-input" type="radio" id="chatMode1" value="public" v-model="mode" checked>
+            <label class="custom-control-label text-secondary" for="chatMode1">Public Chat</label>
+          </div>
+          <div class="custom-control custom-radio">
+            <input class="custom-control-input" type="radio" id="chatMode2" value="private" v-model="mode">
+            <label class="custom-control-label text-secondary" for="chatMode2">Private Chat</label>
+          </div>
+        </div>
+        <button class="btn btn-primary">Enter</button>
+      </form>
     </div>
   </div>
 </template>
@@ -74,7 +72,7 @@ export default {
             if (doc.data().password == this.password) {
               $cookies.set('user', this.name)
               if (this.mode == 'public') {
-                this.$router.push({path: 'chat/1'});
+                this.$router.push({path: 'public-chat/1'});
               } else {
                 this.$router.push({path: 'enter/private-chat/'});
               }
@@ -89,7 +87,7 @@ export default {
               console.log(err)
             });
             $cookies.set('user', this.name)
-            this.$router.push({path: `chat/${this.channel}`});
+            this.$router.push({path: `public-chat/${this.channel}`});
           }
         });
       }
@@ -103,9 +101,11 @@ export default {
 }
 </script>
 <style scoped>
-.login{
-  max-width: 450px;
-  margin-top: 50px;
+.container {
+  margin-top: 10%;
+}
+.login, button {
+  width: 350px;
   display: block;
   margin-left: auto;
   margin-right: auto;

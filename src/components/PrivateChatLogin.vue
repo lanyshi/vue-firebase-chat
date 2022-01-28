@@ -2,29 +2,18 @@
   <div class="container">
     <div class="row">
       <div class="col-xl-2 col-md-3 px-2">
-        <SideNavigation />
+        <SideNavigation :mode="'private-'+action" />
       </div> 
       <div class="col-xl-10 col-md-9 px-2">
         <div class="card">
           <div class="card-header">
-            <ul class="nav nav-tabs card-header-tabs" role="tablist">
-              <li class="nav-item">
-                <h5 class="nav-link disabled"><BootstrapIcon class="mr-2" icon="lock"/></h5>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active" v-if="action == 'enter'"><BootstrapIcon class="mr-2" icon="box-arrow-in-right"/>Enter Chat</a>
-                <a class="nav-link" v-else @click="go('/enter/private-chat')"><BootstrapIcon class="mr-2" icon="box-arrow-in-right"/>Enter Chat</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active" v-if="action == 'create'"><BootstrapIcon class="mr-2" icon="plus-circle"/>Create Chat</a>
-                <a class="nav-link" v-else @click="go('/create/private-chat')"><BootstrapIcon class="mr-2" icon="plus-circle"/>Create Chat</a>
-              </li>
-            </ul>
+            <span v-if="action == 'enter'"><BootstrapIcon class="mr-2" icon="box-arrow-in-right"/>Enter Private Chat</span>
+            <span v-else><BootstrapIcon class="mr-2" icon="plus-circle"/>Create Private Chat</span>
           </div>
           <div class="card-body">
-            <form @submit.prevent="onSubmit">
-              <p v-if="action == 'enter'">Enter A Private Chat Room</p>
-              <p v-else>Create A Private Chat Room</p>
+            <form @submit.prevent="onSubmit" class="text-center">
+              <h5 v-if="action == 'enter'" class="mb-4 text-primary">Enter A Private Chat Room</h5>
+              <h5 v-else class="mb-4 text-primary">Create A Private Chat Room</h5>
               <div class="form-group text-left mb-1">
                 <input type="text" :class="{'form-control': true, 'is-invalid': errors.invalidId}" placeholder="Room ID" name="id" v-model="id" maxlength="20">
                 <small class="text-black-50">ID can't be longer than 20 characters.</small>
@@ -34,8 +23,8 @@
                 <small v-if="errors.message" class="text-danger" id="errorText">{{ errors.message }}</small>
                 <small v-else class="text-black-50">(Example: 0123)</small><br>
               </div>
-              <button class="btn btn-outline-primary" v-if="action == 'enter'" @click="enter">Go</button>
-              <button class="btn btn-outline-primary" v-else @click="create">Go</button>
+              <button class="btn btn-outline-primary" v-if="action == 'enter'">Go</button>
+              <button class="btn btn-outline-primary" v-else>Go</button>
             </form>
           </div>
         </div>
@@ -69,6 +58,7 @@ export default {
   created() {
     if ($cookies.get('previous-chats')) {
       this.enteredRooms = $cookies.get('previous-chats');
+      console.log(this.enteredRooms)
     }
   },
   methods: {
@@ -154,14 +144,12 @@ export default {
 <style scoped>
 form{
   max-width: 300px;
-  margin-top: 20px;
+  margin-top: 10%;
   display: block;
   margin-left: auto;
   margin-right: auto;
 }
-.form{
-  max-width: 400px;
-  margin-left: auto;
-  margin-right: auto;
+button{
+  width: 300px;
 }
 </style>

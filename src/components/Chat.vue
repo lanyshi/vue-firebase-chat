@@ -2,24 +2,14 @@
   <div class="container">
     <div class="row">
       <div class="col-xl-2 col-md-3 px-2">
-        <SideNavigation />
+        <SideNavigation :mode="'public-'+channel" />
       </div>
       <div class="col-xl-10 col-md-9 px-2">
         <div class="card">
           <div class="card-header">
-            <ul class="nav nav-tabs card-header-tabs" role="tablist">
-              <li class="nav-item">
-                <h5 class="nav-link disabled"><BootstrapIcon class="mr-2" icon="chat"/></h5>
-                </li>
-              <li class="nav-item">
-                <a class="nav-link active" v-if="channel == 1">Channel 1</a>
-                <a class="nav-link" v-else @click="go('/chat/1')">Channel 1</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active" v-if="channel == 2">Channel 2</a>
-                <a class="nav-link" v-else @click="go('/chat/2')">Channel 2</a>
-              </li>
-            </ul>
+            <BootstrapIcon class="mr-2" icon="chat"/>
+            <span v-if="channel == 1">Channel 1</span>
+            <span v-else>Channel 2</span>
           </div>
           <div class="card-body text-left">
             <p class="text-secondary nomessages" v-if="messages.length == 0">
